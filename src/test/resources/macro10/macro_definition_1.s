@@ -1,0 +1,3 @@
+DEFINE	LDWDI	(WD),<
+	LDAI	<<WD>&^O377>
+	LDYI	<<WD>/^O400>>

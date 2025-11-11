@@ -1,0 +1,1 @@
+IFE	ROMSW,<KIMROM==0>
