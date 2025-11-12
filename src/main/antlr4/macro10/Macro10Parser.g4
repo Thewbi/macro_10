@@ -151,7 +151,7 @@ expr :
 	
 // IDENTIFIER for the macro the a comma separated list of parameters
 macro_call_line :
-	IDENTIFIER identifier_list
+	label? IDENTIFIER identifier_list
 	;
 	
 identifier_list :
