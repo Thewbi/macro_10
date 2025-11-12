@@ -280,6 +280,18 @@ public class Macro10ParserBaseListener implements Macro10ParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterRaw_data_line(Macro10Parser.Raw_data_lineContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitRaw_data_line(Macro10Parser.Raw_data_lineContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterIdentifier_list(Macro10Parser.Identifier_listContext ctx) { }
 	/**
 	 * {@inheritDoc}

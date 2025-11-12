@@ -228,6 +228,16 @@ public interface Macro10ParserListener extends ParseTreeListener {
 	 */
 	void exitMacro_call_line(Macro10Parser.Macro_call_lineContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link Macro10Parser#raw_data_line}.
+	 * @param ctx the parse tree
+	 */
+	void enterRaw_data_line(Macro10Parser.Raw_data_lineContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link Macro10Parser#raw_data_line}.
+	 * @param ctx the parse tree
+	 */
+	void exitRaw_data_line(Macro10Parser.Raw_data_lineContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link Macro10Parser#identifier_list}.
 	 * @param ctx the parse tree
 	 */

@@ -1,1 +1,1 @@
-IRPC	Q,<IFDIF <Q><">,<EXP "Q">>>
+IRPC	Q,<IFDIF <Q><">,<EXP "Q">>

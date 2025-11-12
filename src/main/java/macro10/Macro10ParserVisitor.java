@@ -143,6 +143,12 @@ public interface Macro10ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMacro_call_line(Macro10Parser.Macro_call_lineContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link Macro10Parser#raw_data_line}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRaw_data_line(Macro10Parser.Raw_data_lineContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link Macro10Parser#identifier_list}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

@@ -121,6 +121,8 @@ IRPC : I R P C ;
 
 PAGE : P A G E ;
 
+QUOTE_BLOCK : '<">'  ;
+
 DOUBLESTAR    : '**'  ;
 ASSIGN        : '=='  ;
 LE            : '<='  ;

@@ -21,6 +21,8 @@ asm_file :
 	assembler_instruction_line
 	|
 	macro_call_line
+    |
+    raw_data_line
     )*
 	;
 
@@ -112,8 +114,11 @@ label :
     |
     created_symbol COLON
 	;
-	
-block : LOWERTHAN ( label | IDENTIFIER | DBLQUOTE | expr | mnemonic_line | assembler_instruction_line | macro_call_line | variable_definition | variable_equality_definition )+ GREATERTHAN
+
+block : 
+    QUOTE_BLOCK
+    |
+    LOWERTHAN ( StringLiteral | label | IDENTIFIER | expr | mnemonic_line | assembler_instruction_line | macro_call_line | variable_definition | variable_equality_definition )+ GREATERTHAN
 	;
 	
 variable_definition :
@@ -151,8 +156,12 @@ expr :
 	
 // IDENTIFIER for the macro the a comma separated list of parameters
 macro_call_line :
-	label? IDENTIFIER identifier_list
+	label? IDENTIFIER param_list
 	;
+
+raw_data_line :
+    label? INTEGER
+    ;
 	
 identifier_list :
 	IDENTIFIER COMMA identifier_list
