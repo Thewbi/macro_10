@@ -29,12 +29,12 @@ assembler_instruction_line :
 assembler_instruction :
 	  macro_definition 
     | IFE expr COMMA block 
-    | IFN 
+    | IFN expr COMMA block
     | FNS
 	;
 	
 macro_definition : 
-	DEFINE IDENTIFIER macro_params? COMMA block
+	DEFINE ( IDENTIFIER | mnemonic) macro_params? COMMA block
     ;
 
 macro_params : 
@@ -74,8 +74,20 @@ mnemonic :
 	| LDAI // <---- is a pseudo instruction!!!!
     | LDYI // <---- is a pseudo instruction!!!!
 //	| https://www.masswerk.at/6502/6502_instruction_set.html
-	| ADC
-//	| ...
+    | ADC | AND | ASL
+    | BCC | BCS | BEQ | BIT | BMI | BNE | BPL | BRK | BVC | BVS
+    | CLC | CLD | CLI | CLV | CMP | CPX | CPY
+    | DEC | DEX | DEY
+    | EOR
+    | INC | INX | INY
+    | JMP | JSR
+    | LDA | LDX | LDY | LSR
+    | NOP
+    | ORA
+    | PHA | PHP | PLA | PLP
+    | ROL | ROR | RTI | RTS
+    | SBC | SEC | SED | SEI | STA | STX | STY
+    | TAX | TAY | TSX | TXA | TXS | TYA
 	;
 	
 label :
@@ -106,12 +118,14 @@ param :
 expr :
 	CARET expr
 	| expr AMPERSAND expr
+    | expr PLUS expr
     | expr MUL expr
 	| expr DIV expr
     | expr MINUS expr
 	| block 
 	| IDENTIFIER 
 	| INTEGER
+    | DOT
 	;
 	
 // IDENTIFIER for the macro the a comma separated list of parameters

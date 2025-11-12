@@ -17,12 +17,18 @@ public class Macro10Parser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		ADC=1, DEFINE=2, FNS=3, IFN=4, IFE=5, LDA=6, LDAI=7, LDYI=8, DOUBLESTAR=9, 
-		ASSIGN=10, LE=11, GE=12, ARROW=13, NEQ=14, VARASGN=15, BOX=16, DBLQUOTE=17, 
-		SEMI=18, COMMA=19, AMPERSAND=20, LPAREN=21, RPAREN=22, LBRACKET=23, RBRACKET=24, 
-		COLON=25, MUL=26, DIV=27, PLUS=28, MINUS=29, LOWERTHAN=30, GREATERTHAN=31, 
-		EQ=32, BAR=33, DOT=34, BACKSLASH=35, CARET=36, LETTER=37, IDENTIFIER=38, 
-		INTEGER=39, DIGIT=40, COMMENT=41, WS=42;
+		ADC=1, AND=2, ASL=3, BCC=4, BCS=5, BEQ=6, BIT=7, BMI=8, BNE=9, BPL=10, 
+		BRK=11, BVC=12, BVS=13, CLC=14, CLD=15, CLI=16, CLV=17, CMP=18, CPX=19, 
+		CPY=20, DEC=21, DEX=22, DEY=23, EOR=24, INC=25, INX=26, INY=27, JMP=28, 
+		JSR=29, LDA=30, LDX=31, LDY=32, LSR=33, NOP=34, ORA=35, PHA=36, PHP=37, 
+		PLA=38, PLP=39, ROL=40, ROR=41, RTI=42, RTS=43, SBC=44, SEC=45, SED=46, 
+		SEI=47, STA=48, STX=49, STY=50, TAX=51, TAY=52, TSX=53, TXA=54, TXS=55, 
+		TYA=56, LDAI=57, LDYI=58, DEFINE=59, FNS=60, IFN=61, IFE=62, DOUBLESTAR=63, 
+		ASSIGN=64, LE=65, GE=66, ARROW=67, NEQ=68, VARASGN=69, BOX=70, DBLQUOTE=71, 
+		SEMI=72, COMMA=73, AMPERSAND=74, LPAREN=75, RPAREN=76, LBRACKET=77, RBRACKET=78, 
+		COLON=79, MUL=80, DIV=81, PLUS=82, MINUS=83, LOWERTHAN=84, GREATERTHAN=85, 
+		EQ=86, BAR=87, DOT=88, BACKSLASH=89, CARET=90, LETTER=91, IDENTIFIER=92, 
+		INTEGER=93, DIGIT=94, COMMENT=95, WS=96;
 	public static final int
 		RULE_asm_file = 0, RULE_assembler_instruction_line = 1, RULE_assembler_instruction = 2, 
 		RULE_macro_definition = 3, RULE_macro_params = 4, RULE_macro_param_list = 5, 
@@ -44,21 +50,31 @@ public class Macro10Parser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, null, null, null, null, null, null, null, null, "'**'", "'=='", 
-			"'<='", "'>='", "'=>'", "'/='", "':='", "'<>'", "'\"'", "';'", "','", 
-			"'&'", "'('", "')'", "'['", "']'", "':'", "'*'", "'/'", "'+'", "'-'", 
-			"'<'", "'>'", "'='", "'|'", "'.'", "'\\'", "'^'"
+			null, null, null, null, null, null, null, null, null, null, null, null, 
+			null, null, null, null, null, null, null, null, null, null, null, null, 
+			null, null, null, null, null, null, null, null, null, null, null, null, 
+			null, null, null, null, null, null, null, null, null, null, null, null, 
+			null, null, null, null, null, null, null, null, null, null, null, null, 
+			null, null, null, "'**'", "'=='", "'<='", "'>='", "'=>'", "'/='", "':='", 
+			"'<>'", "'\"'", "';'", "','", "'&'", "'('", "')'", "'['", "']'", "':'", 
+			"'*'", "'/'", "'+'", "'-'", "'<'", "'>'", "'='", "'|'", "'.'", "'\\'", 
+			"'^'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, "ADC", "DEFINE", "FNS", "IFN", "IFE", "LDA", "LDAI", "LDYI", "DOUBLESTAR", 
-			"ASSIGN", "LE", "GE", "ARROW", "NEQ", "VARASGN", "BOX", "DBLQUOTE", "SEMI", 
-			"COMMA", "AMPERSAND", "LPAREN", "RPAREN", "LBRACKET", "RBRACKET", "COLON", 
-			"MUL", "DIV", "PLUS", "MINUS", "LOWERTHAN", "GREATERTHAN", "EQ", "BAR", 
-			"DOT", "BACKSLASH", "CARET", "LETTER", "IDENTIFIER", "INTEGER", "DIGIT", 
-			"COMMENT", "WS"
+			null, "ADC", "AND", "ASL", "BCC", "BCS", "BEQ", "BIT", "BMI", "BNE", 
+			"BPL", "BRK", "BVC", "BVS", "CLC", "CLD", "CLI", "CLV", "CMP", "CPX", 
+			"CPY", "DEC", "DEX", "DEY", "EOR", "INC", "INX", "INY", "JMP", "JSR", 
+			"LDA", "LDX", "LDY", "LSR", "NOP", "ORA", "PHA", "PHP", "PLA", "PLP", 
+			"ROL", "ROR", "RTI", "RTS", "SBC", "SEC", "SED", "SEI", "STA", "STX", 
+			"STY", "TAX", "TAY", "TSX", "TXA", "TXS", "TYA", "LDAI", "LDYI", "DEFINE", 
+			"FNS", "IFN", "IFE", "DOUBLESTAR", "ASSIGN", "LE", "GE", "ARROW", "NEQ", 
+			"VARASGN", "BOX", "DBLQUOTE", "SEMI", "COMMA", "AMPERSAND", "LPAREN", 
+			"RPAREN", "LBRACKET", "RBRACKET", "COLON", "MUL", "DIV", "PLUS", "MINUS", 
+			"LOWERTHAN", "GREATERTHAN", "EQ", "BAR", "DOT", "BACKSLASH", "CARET", 
+			"LETTER", "IDENTIFIER", "INTEGER", "DIGIT", "COMMENT", "WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -283,7 +299,7 @@ public class Macro10Parser extends Parser {
 		Assembler_instructionContext _localctx = new Assembler_instructionContext(_ctx, getState());
 		enterRule(_localctx, 4, RULE_assembler_instruction);
 		try {
-			setState(57);
+			setState(61);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case DEFINE:
@@ -311,12 +327,18 @@ public class Macro10Parser extends Parser {
 				{
 				setState(55);
 				match(IFN);
+				setState(56);
+				expr(0);
+				setState(57);
+				match(COMMA);
+				setState(58);
+				block();
 				}
 				break;
 			case FNS:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(56);
+				setState(60);
 				match(FNS);
 				}
 				break;
@@ -337,10 +359,13 @@ public class Macro10Parser extends Parser {
 
 	public static class Macro_definitionContext extends ParserRuleContext {
 		public TerminalNode DEFINE() { return getToken(Macro10Parser.DEFINE, 0); }
-		public TerminalNode IDENTIFIER() { return getToken(Macro10Parser.IDENTIFIER, 0); }
 		public TerminalNode COMMA() { return getToken(Macro10Parser.COMMA, 0); }
 		public BlockContext block() {
 			return getRuleContext(BlockContext.class,0);
+		}
+		public TerminalNode IDENTIFIER() { return getToken(Macro10Parser.IDENTIFIER, 0); }
+		public MnemonicContext mnemonic() {
+			return getRuleContext(MnemonicContext.class,0);
 		}
 		public Macro_paramsContext macro_params() {
 			return getRuleContext(Macro_paramsContext.class,0);
@@ -371,23 +396,96 @@ public class Macro10Parser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(59);
+			setState(63);
 			match(DEFINE);
-			setState(60);
-			match(IDENTIFIER);
-			setState(62);
+			setState(66);
+			_errHandler.sync(this);
+			switch (_input.LA(1)) {
+			case IDENTIFIER:
+				{
+				setState(64);
+				match(IDENTIFIER);
+				}
+				break;
+			case ADC:
+			case AND:
+			case ASL:
+			case BCC:
+			case BCS:
+			case BEQ:
+			case BIT:
+			case BMI:
+			case BNE:
+			case BPL:
+			case BRK:
+			case BVC:
+			case BVS:
+			case CLC:
+			case CLD:
+			case CLI:
+			case CLV:
+			case CMP:
+			case CPX:
+			case CPY:
+			case DEC:
+			case DEX:
+			case DEY:
+			case EOR:
+			case INC:
+			case INX:
+			case INY:
+			case JMP:
+			case JSR:
+			case LDA:
+			case LDX:
+			case LDY:
+			case LSR:
+			case NOP:
+			case ORA:
+			case PHA:
+			case PHP:
+			case PLA:
+			case PLP:
+			case ROL:
+			case ROR:
+			case RTI:
+			case RTS:
+			case SBC:
+			case SEC:
+			case SED:
+			case SEI:
+			case STA:
+			case STX:
+			case STY:
+			case TAX:
+			case TAY:
+			case TSX:
+			case TXA:
+			case TXS:
+			case TYA:
+			case LDAI:
+			case LDYI:
+				{
+				setState(65);
+				mnemonic();
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
+			}
+			setState(69);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==LPAREN || _la==IDENTIFIER) {
 				{
-				setState(61);
+				setState(68);
 				macro_params();
 				}
 			}
 
-			setState(64);
+			setState(71);
 			match(COMMA);
-			setState(65);
+			setState(72);
 			block();
 			}
 		}
@@ -431,24 +529,24 @@ public class Macro10Parser extends Parser {
 		Macro_paramsContext _localctx = new Macro_paramsContext(_ctx, getState());
 		enterRule(_localctx, 8, RULE_macro_params);
 		try {
-			setState(72);
+			setState(79);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case IDENTIFIER:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(67);
+				setState(74);
 				macro_param_list();
 				}
 				break;
 			case LPAREN:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(68);
+				setState(75);
 				match(LPAREN);
-				setState(69);
+				setState(76);
 				macro_param_list();
-				setState(70);
+				setState(77);
 				match(RPAREN);
 				}
 				break;
@@ -497,22 +595,22 @@ public class Macro10Parser extends Parser {
 		Macro_param_listContext _localctx = new Macro_param_listContext(_ctx, getState());
 		enterRule(_localctx, 10, RULE_macro_param_list);
 		try {
-			setState(78);
+			setState(85);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,4,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,5,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(74);
+				setState(81);
 				macro_param();
-				setState(75);
+				setState(82);
 				macro_param_list();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(77);
+				setState(84);
 				macro_param();
 				}
 				break;
@@ -556,7 +654,7 @@ public class Macro10Parser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(80);
+			setState(87);
 			match(IDENTIFIER);
 			}
 		}
@@ -601,22 +699,22 @@ public class Macro10Parser extends Parser {
 		Comma_listContext _localctx = new Comma_listContext(_ctx, getState());
 		enterRule(_localctx, 14, RULE_comma_list);
 		try {
-			setState(86);
+			setState(93);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,5,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,6,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(82);
+				setState(89);
 				comma_list_element();
-				setState(83);
+				setState(90);
 				comma_list();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(85);
+				setState(92);
 				comma_list_element();
 				}
 				break;
@@ -663,20 +761,20 @@ public class Macro10Parser extends Parser {
 		Comma_list_elementContext _localctx = new Comma_list_elementContext(_ctx, getState());
 		enterRule(_localctx, 16, RULE_comma_list_element);
 		try {
-			setState(90);
+			setState(97);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,6,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,7,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(88);
+				setState(95);
 				expr(0);
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(89);
+				setState(96);
 				block();
 				}
 				break;
@@ -732,30 +830,30 @@ public class Macro10Parser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(93);
+			setState(100);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==IDENTIFIER) {
 				{
-				setState(92);
+				setState(99);
 				label();
 				}
 			}
 
-			setState(95);
+			setState(102);
 			mnemonic();
-			setState(98);
+			setState(105);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,8,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,9,_ctx) ) {
 			case 1:
 				{
-				setState(96);
+				setState(103);
 				block();
 				}
 				break;
 			case 2:
 				{
-				setState(97);
+				setState(104);
 				param_list();
 				}
 				break;
@@ -778,6 +876,60 @@ public class Macro10Parser extends Parser {
 		public TerminalNode LDAI() { return getToken(Macro10Parser.LDAI, 0); }
 		public TerminalNode LDYI() { return getToken(Macro10Parser.LDYI, 0); }
 		public TerminalNode ADC() { return getToken(Macro10Parser.ADC, 0); }
+		public TerminalNode AND() { return getToken(Macro10Parser.AND, 0); }
+		public TerminalNode ASL() { return getToken(Macro10Parser.ASL, 0); }
+		public TerminalNode BCC() { return getToken(Macro10Parser.BCC, 0); }
+		public TerminalNode BCS() { return getToken(Macro10Parser.BCS, 0); }
+		public TerminalNode BEQ() { return getToken(Macro10Parser.BEQ, 0); }
+		public TerminalNode BIT() { return getToken(Macro10Parser.BIT, 0); }
+		public TerminalNode BMI() { return getToken(Macro10Parser.BMI, 0); }
+		public TerminalNode BNE() { return getToken(Macro10Parser.BNE, 0); }
+		public TerminalNode BPL() { return getToken(Macro10Parser.BPL, 0); }
+		public TerminalNode BRK() { return getToken(Macro10Parser.BRK, 0); }
+		public TerminalNode BVC() { return getToken(Macro10Parser.BVC, 0); }
+		public TerminalNode BVS() { return getToken(Macro10Parser.BVS, 0); }
+		public TerminalNode CLC() { return getToken(Macro10Parser.CLC, 0); }
+		public TerminalNode CLD() { return getToken(Macro10Parser.CLD, 0); }
+		public TerminalNode CLI() { return getToken(Macro10Parser.CLI, 0); }
+		public TerminalNode CLV() { return getToken(Macro10Parser.CLV, 0); }
+		public TerminalNode CMP() { return getToken(Macro10Parser.CMP, 0); }
+		public TerminalNode CPX() { return getToken(Macro10Parser.CPX, 0); }
+		public TerminalNode CPY() { return getToken(Macro10Parser.CPY, 0); }
+		public TerminalNode DEC() { return getToken(Macro10Parser.DEC, 0); }
+		public TerminalNode DEX() { return getToken(Macro10Parser.DEX, 0); }
+		public TerminalNode DEY() { return getToken(Macro10Parser.DEY, 0); }
+		public TerminalNode EOR() { return getToken(Macro10Parser.EOR, 0); }
+		public TerminalNode INC() { return getToken(Macro10Parser.INC, 0); }
+		public TerminalNode INX() { return getToken(Macro10Parser.INX, 0); }
+		public TerminalNode INY() { return getToken(Macro10Parser.INY, 0); }
+		public TerminalNode JMP() { return getToken(Macro10Parser.JMP, 0); }
+		public TerminalNode JSR() { return getToken(Macro10Parser.JSR, 0); }
+		public TerminalNode LDX() { return getToken(Macro10Parser.LDX, 0); }
+		public TerminalNode LDY() { return getToken(Macro10Parser.LDY, 0); }
+		public TerminalNode LSR() { return getToken(Macro10Parser.LSR, 0); }
+		public TerminalNode NOP() { return getToken(Macro10Parser.NOP, 0); }
+		public TerminalNode ORA() { return getToken(Macro10Parser.ORA, 0); }
+		public TerminalNode PHA() { return getToken(Macro10Parser.PHA, 0); }
+		public TerminalNode PHP() { return getToken(Macro10Parser.PHP, 0); }
+		public TerminalNode PLA() { return getToken(Macro10Parser.PLA, 0); }
+		public TerminalNode PLP() { return getToken(Macro10Parser.PLP, 0); }
+		public TerminalNode ROL() { return getToken(Macro10Parser.ROL, 0); }
+		public TerminalNode ROR() { return getToken(Macro10Parser.ROR, 0); }
+		public TerminalNode RTI() { return getToken(Macro10Parser.RTI, 0); }
+		public TerminalNode RTS() { return getToken(Macro10Parser.RTS, 0); }
+		public TerminalNode SBC() { return getToken(Macro10Parser.SBC, 0); }
+		public TerminalNode SEC() { return getToken(Macro10Parser.SEC, 0); }
+		public TerminalNode SED() { return getToken(Macro10Parser.SED, 0); }
+		public TerminalNode SEI() { return getToken(Macro10Parser.SEI, 0); }
+		public TerminalNode STA() { return getToken(Macro10Parser.STA, 0); }
+		public TerminalNode STX() { return getToken(Macro10Parser.STX, 0); }
+		public TerminalNode STY() { return getToken(Macro10Parser.STY, 0); }
+		public TerminalNode TAX() { return getToken(Macro10Parser.TAX, 0); }
+		public TerminalNode TAY() { return getToken(Macro10Parser.TAY, 0); }
+		public TerminalNode TSX() { return getToken(Macro10Parser.TSX, 0); }
+		public TerminalNode TXA() { return getToken(Macro10Parser.TXA, 0); }
+		public TerminalNode TXS() { return getToken(Macro10Parser.TXS, 0); }
+		public TerminalNode TYA() { return getToken(Macro10Parser.TYA, 0); }
 		public MnemonicContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -804,9 +956,9 @@ public class Macro10Parser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(100);
+			setState(107);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ADC) | (1L << LDA) | (1L << LDAI) | (1L << LDYI))) != 0)) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ADC) | (1L << AND) | (1L << ASL) | (1L << BCC) | (1L << BCS) | (1L << BEQ) | (1L << BIT) | (1L << BMI) | (1L << BNE) | (1L << BPL) | (1L << BRK) | (1L << BVC) | (1L << BVS) | (1L << CLC) | (1L << CLD) | (1L << CLI) | (1L << CLV) | (1L << CMP) | (1L << CPX) | (1L << CPY) | (1L << DEC) | (1L << DEX) | (1L << DEY) | (1L << EOR) | (1L << INC) | (1L << INX) | (1L << INY) | (1L << JMP) | (1L << JSR) | (1L << LDA) | (1L << LDX) | (1L << LDY) | (1L << LSR) | (1L << NOP) | (1L << ORA) | (1L << PHA) | (1L << PHP) | (1L << PLA) | (1L << PLP) | (1L << ROL) | (1L << ROR) | (1L << RTI) | (1L << RTS) | (1L << SBC) | (1L << SEC) | (1L << SED) | (1L << SEI) | (1L << STA) | (1L << STX) | (1L << STY) | (1L << TAX) | (1L << TAY) | (1L << TSX) | (1L << TXA) | (1L << TXS) | (1L << TYA) | (1L << LDAI) | (1L << LDYI))) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -855,9 +1007,9 @@ public class Macro10Parser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(102);
+			setState(109);
 			match(IDENTIFIER);
-			setState(103);
+			setState(110);
 			match(COLON);
 			}
 		}
@@ -941,65 +1093,65 @@ public class Macro10Parser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(105);
+			setState(112);
 			match(LOWERTHAN);
-			setState(113); 
+			setState(120); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
-				setState(113);
+				setState(120);
 				_errHandler.sync(this);
-				switch ( getInterpreter().adaptivePredict(_input,9,_ctx) ) {
+				switch ( getInterpreter().adaptivePredict(_input,10,_ctx) ) {
 				case 1:
 					{
-					setState(106);
+					setState(113);
 					match(IDENTIFIER);
 					}
 					break;
 				case 2:
 					{
-					setState(107);
+					setState(114);
 					expr(0);
 					}
 					break;
 				case 3:
 					{
-					setState(108);
+					setState(115);
 					mnemonic_line();
 					}
 					break;
 				case 4:
 					{
-					setState(109);
+					setState(116);
 					assembler_instruction_line();
 					}
 					break;
 				case 5:
 					{
-					setState(110);
+					setState(117);
 					macro_call_line();
 					}
 					break;
 				case 6:
 					{
-					setState(111);
+					setState(118);
 					variable_definition();
 					}
 					break;
 				case 7:
 					{
-					setState(112);
+					setState(119);
 					variable_equality_definition();
 					}
 					break;
 				}
 				}
-				setState(115); 
+				setState(122); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ADC) | (1L << DEFINE) | (1L << FNS) | (1L << IFN) | (1L << IFE) | (1L << LDA) | (1L << LDAI) | (1L << LDYI) | (1L << LOWERTHAN) | (1L << CARET) | (1L << IDENTIFIER) | (1L << INTEGER))) != 0) );
-			setState(117);
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ADC) | (1L << AND) | (1L << ASL) | (1L << BCC) | (1L << BCS) | (1L << BEQ) | (1L << BIT) | (1L << BMI) | (1L << BNE) | (1L << BPL) | (1L << BRK) | (1L << BVC) | (1L << BVS) | (1L << CLC) | (1L << CLD) | (1L << CLI) | (1L << CLV) | (1L << CMP) | (1L << CPX) | (1L << CPY) | (1L << DEC) | (1L << DEX) | (1L << DEY) | (1L << EOR) | (1L << INC) | (1L << INX) | (1L << INY) | (1L << JMP) | (1L << JSR) | (1L << LDA) | (1L << LDX) | (1L << LDY) | (1L << LSR) | (1L << NOP) | (1L << ORA) | (1L << PHA) | (1L << PHP) | (1L << PLA) | (1L << PLP) | (1L << ROL) | (1L << ROR) | (1L << RTI) | (1L << RTS) | (1L << SBC) | (1L << SEC) | (1L << SED) | (1L << SEI) | (1L << STA) | (1L << STX) | (1L << STY) | (1L << TAX) | (1L << TAY) | (1L << TSX) | (1L << TXA) | (1L << TXS) | (1L << TYA) | (1L << LDAI) | (1L << LDYI) | (1L << DEFINE) | (1L << FNS) | (1L << IFN) | (1L << IFE))) != 0) || ((((_la - 84)) & ~0x3f) == 0 && ((1L << (_la - 84)) & ((1L << (LOWERTHAN - 84)) | (1L << (DOT - 84)) | (1L << (CARET - 84)) | (1L << (IDENTIFIER - 84)) | (1L << (INTEGER - 84)))) != 0) );
+			setState(124);
 			match(GREATERTHAN);
 			}
 		}
@@ -1045,11 +1197,11 @@ public class Macro10Parser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(119);
+			setState(126);
 			match(IDENTIFIER);
-			setState(120);
+			setState(127);
 			match(EQ);
-			setState(121);
+			setState(128);
 			expr(0);
 			}
 		}
@@ -1095,11 +1247,11 @@ public class Macro10Parser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(123);
+			setState(130);
 			match(IDENTIFIER);
-			setState(124);
+			setState(131);
 			match(ASSIGN);
-			setState(125);
+			setState(132);
 			expr(0);
 			}
 		}
@@ -1144,22 +1296,22 @@ public class Macro10Parser extends Parser {
 		Param_listContext _localctx = new Param_listContext(_ctx, getState());
 		enterRule(_localctx, 30, RULE_param_list);
 		try {
-			setState(131);
+			setState(138);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,11,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,12,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(127);
+				setState(134);
 				param();
-				setState(128);
+				setState(135);
 				param_list();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(130);
+				setState(137);
 				param();
 				}
 				break;
@@ -1205,7 +1357,7 @@ public class Macro10Parser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(133);
+			setState(140);
 			expr(0);
 			}
 		}
@@ -1233,7 +1385,9 @@ public class Macro10Parser extends Parser {
 		}
 		public TerminalNode IDENTIFIER() { return getToken(Macro10Parser.IDENTIFIER, 0); }
 		public TerminalNode INTEGER() { return getToken(Macro10Parser.INTEGER, 0); }
+		public TerminalNode DOT() { return getToken(Macro10Parser.DOT, 0); }
 		public TerminalNode AMPERSAND() { return getToken(Macro10Parser.AMPERSAND, 0); }
+		public TerminalNode PLUS() { return getToken(Macro10Parser.PLUS, 0); }
 		public TerminalNode MUL() { return getToken(Macro10Parser.MUL, 0); }
 		public TerminalNode DIV() { return getToken(Macro10Parser.DIV, 0); }
 		public TerminalNode MINUS() { return getToken(Macro10Parser.MINUS, 0); }
@@ -1271,104 +1425,122 @@ public class Macro10Parser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(141);
+			setState(149);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case CARET:
 				{
-				setState(136);
+				setState(143);
 				match(CARET);
-				setState(137);
-				expr(8);
+				setState(144);
+				expr(10);
 				}
 				break;
 			case LOWERTHAN:
 				{
-				setState(138);
+				setState(145);
 				block();
 				}
 				break;
 			case IDENTIFIER:
 				{
-				setState(139);
+				setState(146);
 				match(IDENTIFIER);
 				}
 				break;
 			case INTEGER:
 				{
-				setState(140);
+				setState(147);
 				match(INTEGER);
+				}
+				break;
+			case DOT:
+				{
+				setState(148);
+				match(DOT);
 				}
 				break;
 			default:
 				throw new NoViableAltException(this);
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(157);
+			setState(168);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,14,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,15,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					setState(155);
+					setState(166);
 					_errHandler.sync(this);
-					switch ( getInterpreter().adaptivePredict(_input,13,_ctx) ) {
+					switch ( getInterpreter().adaptivePredict(_input,14,_ctx) ) {
 					case 1:
 						{
 						_localctx = new ExprContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(143);
-						if (!(precpred(_ctx, 7))) throw new FailedPredicateException(this, "precpred(_ctx, 7)");
-						setState(144);
+						setState(151);
+						if (!(precpred(_ctx, 9))) throw new FailedPredicateException(this, "precpred(_ctx, 9)");
+						setState(152);
 						match(AMPERSAND);
-						setState(145);
-						expr(8);
+						setState(153);
+						expr(10);
 						}
 						break;
 					case 2:
 						{
 						_localctx = new ExprContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(146);
-						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
-						setState(147);
-						match(MUL);
-						setState(148);
-						expr(7);
+						setState(154);
+						if (!(precpred(_ctx, 8))) throw new FailedPredicateException(this, "precpred(_ctx, 8)");
+						setState(155);
+						match(PLUS);
+						setState(156);
+						expr(9);
 						}
 						break;
 					case 3:
 						{
 						_localctx = new ExprContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(149);
-						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
-						setState(150);
-						match(DIV);
-						setState(151);
-						expr(6);
+						setState(157);
+						if (!(precpred(_ctx, 7))) throw new FailedPredicateException(this, "precpred(_ctx, 7)");
+						setState(158);
+						match(MUL);
+						setState(159);
+						expr(8);
 						}
 						break;
 					case 4:
 						{
 						_localctx = new ExprContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(152);
-						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
-						setState(153);
+						setState(160);
+						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
+						setState(161);
+						match(DIV);
+						setState(162);
+						expr(7);
+						}
+						break;
+					case 5:
+						{
+						_localctx = new ExprContext(_parentctx, _parentState);
+						pushNewRecursionContext(_localctx, _startState, RULE_expr);
+						setState(163);
+						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
+						setState(164);
 						match(MINUS);
-						setState(154);
-						expr(5);
+						setState(165);
+						expr(6);
 						}
 						break;
 					}
 					} 
 				}
-				setState(159);
+				setState(170);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,14,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,15,_ctx);
 			}
 			}
 		}
@@ -1413,9 +1585,9 @@ public class Macro10Parser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(160);
+			setState(171);
 			match(IDENTIFIER);
-			setState(161);
+			setState(172);
 			identifier_list();
 			}
 		}
@@ -1459,24 +1631,24 @@ public class Macro10Parser extends Parser {
 		Identifier_listContext _localctx = new Identifier_listContext(_ctx, getState());
 		enterRule(_localctx, 38, RULE_identifier_list);
 		try {
-			setState(167);
+			setState(178);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,15,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,16,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(163);
+				setState(174);
 				match(IDENTIFIER);
-				setState(164);
+				setState(175);
 				match(COMMA);
-				setState(165);
+				setState(176);
 				identifier_list();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(166);
+				setState(177);
 				match(IDENTIFIER);
 				}
 				break;
@@ -1503,67 +1675,74 @@ public class Macro10Parser extends Parser {
 	private boolean expr_sempred(ExprContext _localctx, int predIndex) {
 		switch (predIndex) {
 		case 0:
-			return precpred(_ctx, 7);
+			return precpred(_ctx, 9);
 		case 1:
-			return precpred(_ctx, 6);
+			return precpred(_ctx, 8);
 		case 2:
-			return precpred(_ctx, 5);
+			return precpred(_ctx, 7);
 		case 3:
-			return precpred(_ctx, 4);
+			return precpred(_ctx, 6);
+		case 4:
+			return precpred(_ctx, 5);
 		}
 		return true;
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3,\u00ac\4\2\t\2\4"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3b\u00b7\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\4\25\t\25\3\2\3\2\3\2\3\2\3\2\5\2\60\n\2\3\3\3\3"+
-		"\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\5\4<\n\4\3\5\3\5\3\5\5\5A\n\5\3\5\3\5"+
-		"\3\5\3\6\3\6\3\6\3\6\3\6\5\6K\n\6\3\7\3\7\3\7\3\7\5\7Q\n\7\3\b\3\b\3\t"+
-		"\3\t\3\t\3\t\5\tY\n\t\3\n\3\n\5\n]\n\n\3\13\5\13`\n\13\3\13\3\13\3\13"+
-		"\5\13e\n\13\3\f\3\f\3\r\3\r\3\r\3\16\3\16\3\16\3\16\3\16\3\16\3\16\3\16"+
-		"\6\16t\n\16\r\16\16\16u\3\16\3\16\3\17\3\17\3\17\3\17\3\20\3\20\3\20\3"+
-		"\20\3\21\3\21\3\21\3\21\5\21\u0086\n\21\3\22\3\22\3\23\3\23\3\23\3\23"+
-		"\3\23\3\23\5\23\u0090\n\23\3\23\3\23\3\23\3\23\3\23\3\23\3\23\3\23\3\23"+
-		"\3\23\3\23\3\23\7\23\u009e\n\23\f\23\16\23\u00a1\13\23\3\24\3\24\3\24"+
-		"\3\25\3\25\3\25\3\25\5\25\u00aa\n\25\3\25\2\3$\26\2\4\6\b\n\f\16\20\22"+
-		"\24\26\30\32\34\36 \"$&(\2\3\4\2\3\3\b\n\2\u00b5\2/\3\2\2\2\4\61\3\2\2"+
-		"\2\6;\3\2\2\2\b=\3\2\2\2\nJ\3\2\2\2\fP\3\2\2\2\16R\3\2\2\2\20X\3\2\2\2"+
-		"\22\\\3\2\2\2\24_\3\2\2\2\26f\3\2\2\2\30h\3\2\2\2\32k\3\2\2\2\34y\3\2"+
-		"\2\2\36}\3\2\2\2 \u0085\3\2\2\2\"\u0087\3\2\2\2$\u008f\3\2\2\2&\u00a2"+
-		"\3\2\2\2(\u00a9\3\2\2\2*\60\5\34\17\2+\60\5\36\20\2,\60\5\24\13\2-\60"+
-		"\5\4\3\2.\60\5&\24\2/*\3\2\2\2/+\3\2\2\2/,\3\2\2\2/-\3\2\2\2/.\3\2\2\2"+
-		"\60\3\3\2\2\2\61\62\5\6\4\2\62\5\3\2\2\2\63<\5\b\5\2\64\65\7\7\2\2\65"+
-		"\66\5$\23\2\66\67\7\25\2\2\678\5\32\16\28<\3\2\2\29<\7\6\2\2:<\7\5\2\2"+
-		";\63\3\2\2\2;\64\3\2\2\2;9\3\2\2\2;:\3\2\2\2<\7\3\2\2\2=>\7\4\2\2>@\7"+
-		"(\2\2?A\5\n\6\2@?\3\2\2\2@A\3\2\2\2AB\3\2\2\2BC\7\25\2\2CD\5\32\16\2D"+
-		"\t\3\2\2\2EK\5\f\7\2FG\7\27\2\2GH\5\f\7\2HI\7\30\2\2IK\3\2\2\2JE\3\2\2"+
-		"\2JF\3\2\2\2K\13\3\2\2\2LM\5\16\b\2MN\5\f\7\2NQ\3\2\2\2OQ\5\16\b\2PL\3"+
-		"\2\2\2PO\3\2\2\2Q\r\3\2\2\2RS\7(\2\2S\17\3\2\2\2TU\5\22\n\2UV\5\20\t\2"+
-		"VY\3\2\2\2WY\5\22\n\2XT\3\2\2\2XW\3\2\2\2Y\21\3\2\2\2Z]\5$\23\2[]\5\32"+
-		"\16\2\\Z\3\2\2\2\\[\3\2\2\2]\23\3\2\2\2^`\5\30\r\2_^\3\2\2\2_`\3\2\2\2"+
-		"`a\3\2\2\2ad\5\26\f\2be\5\32\16\2ce\5 \21\2db\3\2\2\2dc\3\2\2\2e\25\3"+
-		"\2\2\2fg\t\2\2\2g\27\3\2\2\2hi\7(\2\2ij\7\33\2\2j\31\3\2\2\2ks\7 \2\2"+
-		"lt\7(\2\2mt\5$\23\2nt\5\24\13\2ot\5\4\3\2pt\5&\24\2qt\5\34\17\2rt\5\36"+
-		"\20\2sl\3\2\2\2sm\3\2\2\2sn\3\2\2\2so\3\2\2\2sp\3\2\2\2sq\3\2\2\2sr\3"+
-		"\2\2\2tu\3\2\2\2us\3\2\2\2uv\3\2\2\2vw\3\2\2\2wx\7!\2\2x\33\3\2\2\2yz"+
-		"\7(\2\2z{\7\"\2\2{|\5$\23\2|\35\3\2\2\2}~\7(\2\2~\177\7\f\2\2\177\u0080"+
-		"\5$\23\2\u0080\37\3\2\2\2\u0081\u0082\5\"\22\2\u0082\u0083\5 \21\2\u0083"+
-		"\u0086\3\2\2\2\u0084\u0086\5\"\22\2\u0085\u0081\3\2\2\2\u0085\u0084\3"+
-		"\2\2\2\u0086!\3\2\2\2\u0087\u0088\5$\23\2\u0088#\3\2\2\2\u0089\u008a\b"+
-		"\23\1\2\u008a\u008b\7&\2\2\u008b\u0090\5$\23\n\u008c\u0090\5\32\16\2\u008d"+
-		"\u0090\7(\2\2\u008e\u0090\7)\2\2\u008f\u0089\3\2\2\2\u008f\u008c\3\2\2"+
-		"\2\u008f\u008d\3\2\2\2\u008f\u008e\3\2\2\2\u0090\u009f\3\2\2\2\u0091\u0092"+
-		"\f\t\2\2\u0092\u0093\7\26\2\2\u0093\u009e\5$\23\n\u0094\u0095\f\b\2\2"+
-		"\u0095\u0096\7\34\2\2\u0096\u009e\5$\23\t\u0097\u0098\f\7\2\2\u0098\u0099"+
-		"\7\35\2\2\u0099\u009e\5$\23\b\u009a\u009b\f\6\2\2\u009b\u009c\7\37\2\2"+
-		"\u009c\u009e\5$\23\7\u009d\u0091\3\2\2\2\u009d\u0094\3\2\2\2\u009d\u0097"+
-		"\3\2\2\2\u009d\u009a\3\2\2\2\u009e\u00a1\3\2\2\2\u009f\u009d\3\2\2\2\u009f"+
-		"\u00a0\3\2\2\2\u00a0%\3\2\2\2\u00a1\u009f\3\2\2\2\u00a2\u00a3\7(\2\2\u00a3"+
-		"\u00a4\5(\25\2\u00a4\'\3\2\2\2\u00a5\u00a6\7(\2\2\u00a6\u00a7\7\25\2\2"+
-		"\u00a7\u00aa\5(\25\2\u00a8\u00aa\7(\2\2\u00a9\u00a5\3\2\2\2\u00a9\u00a8"+
-		"\3\2\2\2\u00aa)\3\2\2\2\22/;@JPX\\_dsu\u0085\u008f\u009d\u009f\u00a9";
+		"\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\5\4@\n\4\3\5\3\5\3\5"+
+		"\5\5E\n\5\3\5\5\5H\n\5\3\5\3\5\3\5\3\6\3\6\3\6\3\6\3\6\5\6R\n\6\3\7\3"+
+		"\7\3\7\3\7\5\7X\n\7\3\b\3\b\3\t\3\t\3\t\3\t\5\t`\n\t\3\n\3\n\5\nd\n\n"+
+		"\3\13\5\13g\n\13\3\13\3\13\3\13\5\13l\n\13\3\f\3\f\3\r\3\r\3\r\3\16\3"+
+		"\16\3\16\3\16\3\16\3\16\3\16\3\16\6\16{\n\16\r\16\16\16|\3\16\3\16\3\17"+
+		"\3\17\3\17\3\17\3\20\3\20\3\20\3\20\3\21\3\21\3\21\3\21\5\21\u008d\n\21"+
+		"\3\22\3\22\3\23\3\23\3\23\3\23\3\23\3\23\3\23\5\23\u0098\n\23\3\23\3\23"+
+		"\3\23\3\23\3\23\3\23\3\23\3\23\3\23\3\23\3\23\3\23\3\23\3\23\3\23\7\23"+
+		"\u00a9\n\23\f\23\16\23\u00ac\13\23\3\24\3\24\3\24\3\25\3\25\3\25\3\25"+
+		"\5\25\u00b5\n\25\3\25\2\3$\26\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 "+
+		"\"$&(\2\3\3\2\3<\2\u00c3\2/\3\2\2\2\4\61\3\2\2\2\6?\3\2\2\2\bA\3\2\2\2"+
+		"\nQ\3\2\2\2\fW\3\2\2\2\16Y\3\2\2\2\20_\3\2\2\2\22c\3\2\2\2\24f\3\2\2\2"+
+		"\26m\3\2\2\2\30o\3\2\2\2\32r\3\2\2\2\34\u0080\3\2\2\2\36\u0084\3\2\2\2"+
+		" \u008c\3\2\2\2\"\u008e\3\2\2\2$\u0097\3\2\2\2&\u00ad\3\2\2\2(\u00b4\3"+
+		"\2\2\2*\60\5\34\17\2+\60\5\36\20\2,\60\5\24\13\2-\60\5\4\3\2.\60\5&\24"+
+		"\2/*\3\2\2\2/+\3\2\2\2/,\3\2\2\2/-\3\2\2\2/.\3\2\2\2\60\3\3\2\2\2\61\62"+
+		"\5\6\4\2\62\5\3\2\2\2\63@\5\b\5\2\64\65\7@\2\2\65\66\5$\23\2\66\67\7K"+
+		"\2\2\678\5\32\16\28@\3\2\2\29:\7?\2\2:;\5$\23\2;<\7K\2\2<=\5\32\16\2="+
+		"@\3\2\2\2>@\7>\2\2?\63\3\2\2\2?\64\3\2\2\2?9\3\2\2\2?>\3\2\2\2@\7\3\2"+
+		"\2\2AD\7=\2\2BE\7^\2\2CE\5\26\f\2DB\3\2\2\2DC\3\2\2\2EG\3\2\2\2FH\5\n"+
+		"\6\2GF\3\2\2\2GH\3\2\2\2HI\3\2\2\2IJ\7K\2\2JK\5\32\16\2K\t\3\2\2\2LR\5"+
+		"\f\7\2MN\7M\2\2NO\5\f\7\2OP\7N\2\2PR\3\2\2\2QL\3\2\2\2QM\3\2\2\2R\13\3"+
+		"\2\2\2ST\5\16\b\2TU\5\f\7\2UX\3\2\2\2VX\5\16\b\2WS\3\2\2\2WV\3\2\2\2X"+
+		"\r\3\2\2\2YZ\7^\2\2Z\17\3\2\2\2[\\\5\22\n\2\\]\5\20\t\2]`\3\2\2\2^`\5"+
+		"\22\n\2_[\3\2\2\2_^\3\2\2\2`\21\3\2\2\2ad\5$\23\2bd\5\32\16\2ca\3\2\2"+
+		"\2cb\3\2\2\2d\23\3\2\2\2eg\5\30\r\2fe\3\2\2\2fg\3\2\2\2gh\3\2\2\2hk\5"+
+		"\26\f\2il\5\32\16\2jl\5 \21\2ki\3\2\2\2kj\3\2\2\2l\25\3\2\2\2mn\t\2\2"+
+		"\2n\27\3\2\2\2op\7^\2\2pq\7Q\2\2q\31\3\2\2\2rz\7V\2\2s{\7^\2\2t{\5$\23"+
+		"\2u{\5\24\13\2v{\5\4\3\2w{\5&\24\2x{\5\34\17\2y{\5\36\20\2zs\3\2\2\2z"+
+		"t\3\2\2\2zu\3\2\2\2zv\3\2\2\2zw\3\2\2\2zx\3\2\2\2zy\3\2\2\2{|\3\2\2\2"+
+		"|z\3\2\2\2|}\3\2\2\2}~\3\2\2\2~\177\7W\2\2\177\33\3\2\2\2\u0080\u0081"+
+		"\7^\2\2\u0081\u0082\7X\2\2\u0082\u0083\5$\23\2\u0083\35\3\2\2\2\u0084"+
+		"\u0085\7^\2\2\u0085\u0086\7B\2\2\u0086\u0087\5$\23\2\u0087\37\3\2\2\2"+
+		"\u0088\u0089\5\"\22\2\u0089\u008a\5 \21\2\u008a\u008d\3\2\2\2\u008b\u008d"+
+		"\5\"\22\2\u008c\u0088\3\2\2\2\u008c\u008b\3\2\2\2\u008d!\3\2\2\2\u008e"+
+		"\u008f\5$\23\2\u008f#\3\2\2\2\u0090\u0091\b\23\1\2\u0091\u0092\7\\\2\2"+
+		"\u0092\u0098\5$\23\f\u0093\u0098\5\32\16\2\u0094\u0098\7^\2\2\u0095\u0098"+
+		"\7_\2\2\u0096\u0098\7Z\2\2\u0097\u0090\3\2\2\2\u0097\u0093\3\2\2\2\u0097"+
+		"\u0094\3\2\2\2\u0097\u0095\3\2\2\2\u0097\u0096\3\2\2\2\u0098\u00aa\3\2"+
+		"\2\2\u0099\u009a\f\13\2\2\u009a\u009b\7L\2\2\u009b\u00a9\5$\23\f\u009c"+
+		"\u009d\f\n\2\2\u009d\u009e\7T\2\2\u009e\u00a9\5$\23\13\u009f\u00a0\f\t"+
+		"\2\2\u00a0\u00a1\7R\2\2\u00a1\u00a9\5$\23\n\u00a2\u00a3\f\b\2\2\u00a3"+
+		"\u00a4\7S\2\2\u00a4\u00a9\5$\23\t\u00a5\u00a6\f\7\2\2\u00a6\u00a7\7U\2"+
+		"\2\u00a7\u00a9\5$\23\b\u00a8\u0099\3\2\2\2\u00a8\u009c\3\2\2\2\u00a8\u009f"+
+		"\3\2\2\2\u00a8\u00a2\3\2\2\2\u00a8\u00a5\3\2\2\2\u00a9\u00ac\3\2\2\2\u00aa"+
+		"\u00a8\3\2\2\2\u00aa\u00ab\3\2\2\2\u00ab%\3\2\2\2\u00ac\u00aa\3\2\2\2"+
+		"\u00ad\u00ae\7^\2\2\u00ae\u00af\5(\25\2\u00af\'\3\2\2\2\u00b0\u00b1\7"+
+		"^\2\2\u00b1\u00b2\7K\2\2\u00b2\u00b5\5(\25\2\u00b3\u00b5\7^\2\2\u00b4"+
+		"\u00b0\3\2\2\2\u00b4\u00b3\3\2\2\2\u00b5)\3\2\2\2\23/?DGQW_cfkz|\u008c"+
+		"\u0097\u00a8\u00aa\u00b4";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
