@@ -29,6 +29,18 @@ public interface Macro10ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAssembler_instruction(Macro10Parser.Assembler_instructionContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link Macro10Parser#ifdif}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIfdif(Macro10Parser.IfdifContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link Macro10Parser#irpc}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIrpc(Macro10Parser.IrpcContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link Macro10Parser#macro_definition}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -52,6 +64,12 @@ public interface Macro10ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitMacro_param(Macro10Parser.Macro_paramContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link Macro10Parser#created_symbol}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCreated_symbol(Macro10Parser.Created_symbolContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link Macro10Parser#comma_list}.
 	 * @param ctx the parse tree

@@ -11,6 +11,7 @@ options {
 }
 
 asm_file :
+    (
     variable_definition
     |
     variable_equality_definition
@@ -20,6 +21,7 @@ asm_file :
 	assembler_instruction_line
 	|
 	macro_call_line
+    )*
 	;
 
 assembler_instruction_line :
@@ -27,14 +29,23 @@ assembler_instruction_line :
 	;
 	
 assembler_instruction :
-	  macro_definition 
+      irpc
+    | ifdif
+	| macro_definition 
     | IFE expr COMMA block 
     | IFN expr COMMA block
     | FNS
+    | PAGE
 	;
+
+ifdif : IFDIF block block COMMA block
+    ;
+
+irpc : IRPC IDENTIFIER COMMA? block
+    ;
 	
 macro_definition : 
-	DEFINE ( IDENTIFIER | mnemonic) macro_params? COMMA block
+	DEFINE ( IDENTIFIER | mnemonic ) macro_params? COMMA block
     ;
 
 macro_params : 
@@ -52,6 +63,10 @@ macro_param_list :
 macro_param :
     IDENTIFIER
     ;
+
+created_symbol :
+    PERCENT IDENTIFIER
+    ;
 	
 comma_list : 
 	comma_list_element comma_list
@@ -66,13 +81,15 @@ comma_list_element :
 	;
 	
 mnemonic_line :
-	label? mnemonic ( block | param_list )
+	label? mnemonic ( block | param_list COMMA? )?
 	;
 	
 mnemonic :
-	  LDA 
+      CMPI
 	| LDAI // <---- is a pseudo instruction!!!!
     | LDYI // <---- is a pseudo instruction!!!!
+    | SBCI // <---- is a pseudo instruction!!!!
+
 //	| https://www.masswerk.at/6502/6502_instruction_set.html
     | ADC | AND | ASL
     | BCC | BCS | BEQ | BIT | BMI | BNE | BPL | BRK | BVC | BVS
@@ -92,9 +109,11 @@ mnemonic :
 	
 label :
 	IDENTIFIER COLON
+    |
+    created_symbol COLON
 	;
 	
-block : LOWERTHAN ( IDENTIFIER | expr | mnemonic_line | assembler_instruction_line | macro_call_line | variable_definition | variable_equality_definition )+ GREATERTHAN
+block : LOWERTHAN ( label | IDENTIFIER | DBLQUOTE | expr | mnemonic_line | assembler_instruction_line | macro_call_line | variable_definition | variable_equality_definition )+ GREATERTHAN
 	;
 	
 variable_definition :
@@ -106,7 +125,7 @@ variable_equality_definition :
 	;
 	
 param_list :
-	param param_list
+	param COMMA param_list
 	|
 	param
 	;
@@ -116,16 +135,18 @@ param :
 	;
 	
 expr :
-	CARET expr
+	  CARET expr
 	| expr AMPERSAND expr
     | expr PLUS expr
+    | expr MINUS expr
     | expr MUL expr
 	| expr DIV expr
-    | expr MINUS expr
 	| block 
-	| IDENTIFIER 
+	| IDENTIFIER
+    | StringLiteral
 	| INTEGER
     | DOT
+    | created_symbol
 	;
 	
 // IDENTIFIER for the macro the a comma separated list of parameters

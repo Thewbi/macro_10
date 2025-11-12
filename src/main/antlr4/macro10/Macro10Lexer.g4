@@ -99,8 +99,12 @@ TYA : T Y A ; // transfer Y to accumulator
 // PSEUDO INSTRUCTIONS
 //
 
+CMPI : C M P I ;
+
 LDAI : L D A I ;
 LDYI : L D Y I ;
+
+SBCI : S B C I ;
 
 //
 // Assembler Instructions
@@ -110,8 +114,12 @@ DEFINE : D E F I N E ;
 
 FNS : F N S ;
 
+IFDIF : I F D I F ;
 IFN : I F N ;
 IFE : I F E ;
+IRPC : I R P C ;
+
+PAGE : P A G E ;
 
 DOUBLESTAR    : '**'  ;
 ASSIGN        : '=='  ;
@@ -141,13 +149,184 @@ BAR           : '|'   ;
 DOT           : '.'   ;
 BACKSLASH     : '\\'  ;
 CARET         : '^'   ;
-
-LETTER
-  : 'a'..'z' | 'A'..'Z'
-  ;
+PERCENT       : '%'   ;
 
 IDENTIFIER
   : LETTER ( '_' ( LETTER | DIGIT ) | LETTER | DIGIT )*
+  ;
+
+// fix according to https://stackoverflow.com/questions/64108151/how-to-resolve-parsing-error-in-antlr-cpp14-grammar
+StringLiteral
+    : Encodingprefix? '"' Schar* '"'
+    | Encodingprefix? '"' Schar* '" GST_TIME_FORMAT'
+    | Encodingprefix? 'R' Rawstring
+    ;
+
+fragment Schar
+    : ~ ["\\\r\n]
+	| Escapesequence
+	| Universalcharactername
+    ;
+
+fragment Hexquad
+    : HEXADECIMALDIGIT HEXADECIMALDIGIT HEXADECIMALDIGIT HEXADECIMALDIGIT
+    ;
+
+fragment OCTALDIGIT: [0-7];
+
+fragment HEXADECIMALDIGIT: [0-9a-fA-F];
+
+fragment Universalcharactername
+    : '\\u' Hexquad
+	| '\\U' Hexquad Hexquad
+    ;
+
+fragment Escapesequence
+    : Simpleescapesequence
+	| Octalescapesequence
+	| Hexadecimalescapesequence
+    ;
+
+fragment Simpleescapesequence
+	: '\\\''
+	| '\\"'
+	| '\\?'
+	| '\\\\'
+	| '\\a'
+	| '\\b'
+	| '\\f'
+	| '\\n'
+	| '\\r'
+	| '\\' ('\r' '\n'? | '\n')
+	| '\\t'
+	| '\\v'
+    ;
+
+fragment Octalescapesequence
+	: '\\' OCTALDIGIT
+	| '\\' OCTALDIGIT OCTALDIGIT
+	| '\\' OCTALDIGIT OCTALDIGIT OCTALDIGIT
+    ;
+
+fragment Hexadecimalescapesequence
+    : '\\x' HEXADECIMALDIGIT+
+    ;
+
+fragment Encodingprefix: 'u8' | 'u' | 'U' | 'L';
+
+// fix according to https://stackoverflow.com/questions/64108151/how-to-resolve-parsing-error-in-antlr-cpp14-grammar
+fragment Rawstring
+ : '"'              // Match Opening Double Quote
+   ( /* Handle Empty D_CHAR_SEQ without Predicates
+        This should also work
+        '(' .*? ')'
+      */
+     '(' ( ~')' | ')'+ ~'"' )* (')'+)
+
+   | D_CHAR_SEQ
+         /*  // Limit D_CHAR_SEQ to 16 characters
+            { ( ( getText().length() - ( getText().indexOf("\"") + 1 ) ) <= 16 ) }?
+         */
+     '('
+     /* From Spec :
+        Any member of the source character set, except
+        a right parenthesis ) followed by the initial D_CHAR_SEQUENCE
+        ( which may be empty ) followed by a double quote ".
+
+      - The following loop consumes characters until it matches the
+        terminating sequence of characters for the RAW STRING
+      - The options are mutually exclusive, so Only one will
+        ever execute in each loop pass
+      - Each Option will execute at least once.  The first option needs to
+        match the ')' character even if the D_CHAR_SEQ is empty. The second
+        option needs to match the closing \" to fall out of the loop. Each
+        option will only consume at most 1 character
+      */
+     (   //  Consume everthing but the Double Quote
+       ~'"'
+     |   //  If text Does Not End with closing Delimiter, consume the Double Quote
+       '"'
+       {
+        /*
+            // !getText().endsWith(
+            //     ")"
+            //   + getText().substring( getText().indexOf( "\"" ) + 1
+            //                        , getText().indexOf( "(" )
+            //                        )
+            //   + '\"'
+            // )
+
+			//println!("line_number: {}", recog.get_line());
+
+				let ttext = recog.get_text();
+				//println!("{:?}", ttext);
+
+				let mut start_index: i64 = -1;
+				match ttext.find("\"") {
+					None => { start_index = -1; }
+					Some(x) => { start_index = x as i64; }
+				}
+				start_index += 1;
+
+				let mut end_index: i64 = -1;
+				match ttext.find("(") {
+					None => { end_index = -1; }
+					Some(x) => { end_index = x as i64; }
+				}
+
+				let slice = &ttext[start_index as usize..end_index as usize];
+
+				let mut substring: String = ")".to_owned();
+				substring.push_str(slice);
+				substring.push_str("\"");
+
+				//println!("substring; {}", substring);
+
+				return !ttext.ends_with(&substring);
+                 */
+
+                 false
+       }?
+     )*
+   )
+   '"'              // Match Closing Double Quote
+
+   /*
+   // Strip Away R"D_CHAR_SEQ(...)D_CHAR_SEQ"
+   //  Send D_CHAR_SEQ <TAB> ... to Parser
+   {
+     setText( getText().substring( getText().indexOf("\"") + 1
+                                 , getText().indexOf("(")
+                                 )
+            + "\t"
+            + getText().substring( getText().indexOf("(") + 1
+                                 , getText().lastIndexOf(")")
+                                 )
+            );
+   }
+    */
+ ;
+
+fragment D_CHAR_SEQ     // Should be limited to 16 characters
+    : D_CHAR+
+    ;
+
+ fragment D_CHAR
+      /*  Any member of the basic source character set except
+          space, the left parenthesis (, the right parenthesis ),
+          the backslash \, and the control characters representing
+           horizontal tab, vertical tab, form feed, and newline.
+      */
+    : '\u0021'..'\u0023'
+    | '\u0025'..'\u0027'
+    | '\u002a'..'\u003f'
+    | '\u0041'..'\u005b'
+    | '\u005d'..'\u005f'
+    | '\u0061'..'\u007e'
+    ;
+
+LETTER
+  : 'a'..'z' | 'A'..'Z'
   ;
 
 INTEGER

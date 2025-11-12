@@ -52,6 +52,30 @@ public class Macro10ParserBaseListener implements Macro10ParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterIfdif(Macro10Parser.IfdifContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIfdif(Macro10Parser.IfdifContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIrpc(Macro10Parser.IrpcContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIrpc(Macro10Parser.IrpcContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterMacro_definition(Macro10Parser.Macro_definitionContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -95,6 +119,18 @@ public class Macro10ParserBaseListener implements Macro10ParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitMacro_param(Macro10Parser.Macro_paramContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCreated_symbol(Macro10Parser.Created_symbolContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCreated_symbol(Macro10Parser.Created_symbolContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
