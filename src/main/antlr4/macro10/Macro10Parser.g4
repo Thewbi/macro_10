@@ -38,6 +38,7 @@ assembler_instruction :
     | IFN expr COMMA block
     | FNS
     | PAGE
+    | label? ADR LPAREN expr RPAREN
 	;
 
 ifdif : IFDIF block block COMMA block

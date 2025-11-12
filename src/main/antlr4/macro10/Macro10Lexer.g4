@@ -110,6 +110,8 @@ SBCI : S B C I ;
 // Assembler Instructions
 //
 
+ADR : A D R ;
+
 DEFINE : D E F I N E ;
 
 FNS : F N S ;
@@ -343,6 +345,14 @@ COMMENT
   : ';' ( ~'\n' )*
   -> skip
   ;
+
+BLOCK_COMMENT
+    : '/*' ( BLOCK_COMMENT | . )*? '*/' -> skip
+    ;
+
+SECTION_BLOCK_COMMENT
+    : 'COMMENT *' ( BLOCK_COMMENT | . )*? '*' -> skip
+    ;
 
 WS  
   : [ \t\r\n]+ -> skip 
