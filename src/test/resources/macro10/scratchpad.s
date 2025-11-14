@@ -1,0 +1,4 @@
+STMDSP: ADR(END-1)
+
+END	$Z+START
+

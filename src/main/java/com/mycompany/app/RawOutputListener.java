@@ -7,12 +7,19 @@ import macro10.Macro10ParserBaseListener;
 
 public class RawOutputListener extends Macro10ParserBaseListener {
 
+    private static final boolean PRINT_OUTPUT = true;
+    // private static final boolean PRINT_OUTPUT = false;
+
     private int indent;
 
     @Override
     public void enterEveryRule(ParserRuleContext ctx) {
-        printIndent();
-        System.out.println(ctx.getClass().getSimpleName() + " [" + ctx.getStart().getText() + "] " + ctx.hashCode());
+
+        if (PRINT_OUTPUT) {
+            printIndent();
+            System.out
+                    .println(ctx.getClass().getSimpleName() + " [" + ctx.getStart().getText() + "] " + ctx.hashCode());
+        }
         descend();
     }
 
@@ -24,9 +31,13 @@ public class RawOutputListener extends Macro10ParserBaseListener {
     @Override
     public void visitTerminal(TerminalNode node) {
         descend();
-        printIndent();
-        System.out.println(node.getText());
-        // currentNode.setLabel("TERMINAL: " + node.getText());
+
+        if (PRINT_OUTPUT) {
+            printIndent();
+            System.out.println(node.getText());
+            // currentNode.setLabel("TERMINAL: " + node.getText());
+        }
+
         ascend();
     }
 

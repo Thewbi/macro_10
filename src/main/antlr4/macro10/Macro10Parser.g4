@@ -12,6 +12,8 @@ options {
 
 asm_file :
     (
+    label
+    |
     variable_definition
     |
     variable_equality_definition
@@ -34,11 +36,18 @@ assembler_instruction :
       irpc
     | ifdif
 	| macro_definition 
+    | FNS
     | IFE expr COMMA block 
     | IFN expr COMMA block
-    | FNS
-    | PAGE
-    | label? ADR LPAREN expr RPAREN
+    | ORG INTEGER
+    | PAGE 
+    | RADIX INTEGER
+    | SALL
+    | SEARCH IDENTIFIER
+    | SUBTTL
+    | TITLE
+    | label? ADR expr
+    | END expr
 	;
 
 ifdif : IFDIF block block COMMA block
@@ -84,7 +93,7 @@ comma_list_element :
 	;
 	
 mnemonic_line :
-	label? mnemonic ( block | param_list COMMA? )?
+	label? EXCLAMATION? mnemonic ( block | param_list COMMA? )?
 	;
 	
 mnemonic :
@@ -111,6 +120,8 @@ mnemonic :
 	;
 	
 label :
+    CUSTOM_START_LABEL COLON
+    |
 	IDENTIFIER COLON
     |
     created_symbol COLON
@@ -142,6 +153,7 @@ param :
 	
 expr :
 	  CARET expr
+    | LPAREN expr RPAREN
 	| expr AMPERSAND expr
     | expr PLUS expr
     | expr MINUS expr
@@ -153,6 +165,7 @@ expr :
 	| INTEGER
     | DOT
     | created_symbol
+    | END
 	;
 	
 // IDENTIFIER for the macro the a comma separated list of parameters

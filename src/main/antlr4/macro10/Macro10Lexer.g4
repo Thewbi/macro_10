@@ -114,6 +114,10 @@ ADR : A D R ;
 
 DEFINE : D E F I N E ;
 
+//END : E N D -> pushMode(TITLEMODE) ;
+
+END : E N D ;
+
 FNS : F N S ;
 
 IFDIF : I F D I F ;
@@ -121,42 +125,57 @@ IFN : I F N ;
 IFE : I F E ;
 IRPC : I R P C ;
 
+ORG : O R G ;
+
 PAGE : P A G E ;
 
-QUOTE_BLOCK : '<">'  ;
+RADIX : R A D I X ;
 
-DOUBLESTAR    : '**'  ;
-ASSIGN        : '=='  ;
-LE            : '<='  ;
-GE            : '>='  ;
-ARROW         : '=>'  ;
-NEQ           : '/='  ;
-VARASGN       : ':='  ;
-BOX           : '<>'  ;
-DBLQUOTE      : '"'   ;
-SEMI          : ';'   ;
-COMMA         : ','   ;
-AMPERSAND     : '&'   ;
-LPAREN        : '('   ;
-RPAREN        : ')'   ;
-LBRACKET      : '['   ;
-RBRACKET      : ']'   ;
-COLON         : ':'   ;
-MUL           : '*'   ;
-DIV           : '/'   ;
-PLUS          : '+'   ;
-MINUS         : '-'   ;
-LOWERTHAN     : '<'   ;
-GREATERTHAN   : '>'   ;
-EQ            : '='   ;
-BAR           : '|'   ;
-DOT           : '.'   ;
-BACKSLASH     : '\\'  ;
-CARET         : '^'   ;
-PERCENT       : '%'   ;
+SALL : S A L L ;
+SEARCH : S E A R C H ;
+SUBTTL : S U B T T L -> pushMode(TITLEMODE) ;
+
+TITLE : T I T L E -> pushMode(TITLEMODE) ;
+
+QUOTE_BLOCK : '<">'  ;
+CUSTOM_START_LABEL : '$Z:' ;
+
+DOUBLESTAR      : '**'  ;
+ASSIGN          : '=='  ;
+LE              : '<='  ;
+GE              : '>='  ;
+ARROW           : '=>'  ;
+NEQ             : '/='  ;
+VARASGN         : ':='  ;
+BOX             : '<>'  ;
+DBLQUOTE        : '"'   ;
+SEMI            : ';'   ;
+COMMA           : ','   ;
+AMPERSAND       : '&'   ;
+LPAREN          : '('   ;
+RPAREN          : ')'   ;
+LBRACKET        : '['   ;
+RBRACKET        : ']'   ;
+COLON           : ':'   ;
+MUL             : '*'   ;
+DIV             : '/'   ;
+PLUS            : '+'   ;
+MINUS           : '-'   ;
+LOWERTHAN       : '<'   ;
+GREATERTHAN     : '>'   ;
+EQ              : '='   ;
+BAR             : '|'   ;
+DOT             : '.'   ;
+BACKSLASH       : '\\'  ;
+CARET           : '^'   ;
+PERCENT         : '%'   ;
+HASH            : '#'   ;
+UNDERSCORE      : '_'   ;
+EXCLAMATION     : '!'   ;
+DOLLAR          : '$'   ;
 
 IDENTIFIER
-  : LETTER ( '_' ( LETTER | DIGIT ) | LETTER | DIGIT )*
+  : ( DOT | DOLLAR )? LETTER ( ( UNDERSCORE  ) ( LETTER | DIGIT ) | LETTER | DIGIT | HASH | '!' )*
   ;
 
 // fix according to https://stackoverflow.com/questions/64108151/how-to-resolve-parsing-error-in-antlr-cpp14-grammar
@@ -315,7 +334,7 @@ fragment D_CHAR_SEQ     // Should be limited to 16 characters
     : D_CHAR+
     ;
 
- fragment D_CHAR
+fragment D_CHAR
       /*  Any member of the basic source character set except
           space, the left parenthesis (, the right parenthesis ),
           the backslash \, and the control characters representing
@@ -357,3 +376,14 @@ SECTION_BLOCK_COMMENT
 WS  
   : [ \t\r\n]+ -> skip 
   ;
+
+
+
+mode TITLEMODE ;
+
+EOL     : [\r\n]+ -> mode(DEFAULT_MODE), skip ;
+//WORD    : [a-zA-Z0-9]+  ;
+//AA      : ' ' -> skip   ;
+SPACE : ' ' -> skip   ;
+TAB : [\t]+ -> skip;
+DATA : ( DOT | ',' | '-' | [a-zA-Z0-9] )+ -> skip;

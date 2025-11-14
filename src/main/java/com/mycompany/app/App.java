@@ -34,10 +34,15 @@ public class App {
 
         // @formatter:off
 
-        // String file = "src/test/resources/macro10/assembler_instruction_1.s";
-        String file = "src/test/resources/macro10/macro_definition_1.s";
+        String file = "src/test/resources/macro10/assembler_instruction_1.s";
+        // String file = "src/test/resources/macro10/macro_definition_1.s";
         // String file = "src/test/resources/macro10/variable_definition_1.s";
         // String file = "src/test/resources/macro10/variable_equality_definition_1.s";
+        // String file = "src/test/resources/macro10/ife_1.s";
+        // String file = "src/test/resources/macro10/scratchpad.s";
+        // String file = "src/test/resources/macro10/m6502.asm";
+        // String file = "src/test/resources/macro10/file_header.s";
+        // String file = "src/test/resources/macro10/todo.s";
 
         // @formatter:on
 
