@@ -10,6 +10,7 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import macro10.Macro10Lexer;
 import macro10.Macro10Parser;
 import macro10.Macro10Parser.Asm_fileContext;
+import macro10.Macro10Parser.ExprContext;
 
 
 /**
@@ -35,14 +36,26 @@ public class App {
         // @formatter:off
 
         String file = "src/test/resources/macro10/assembler_instruction_1.s";
+        // String file = "src/test/resources/macro10/assembler_instruction_2.s";
+        // String file = "src/test/resources/macro10/assembler_instruction_3.s";
+
+        // String file = "src/test/resources/macro10/expr_1.s";
+        // String file = "src/test/resources/macro10/expr_2.s";
+
+        // String file = "src/test/resources/macro10/file_header.s";
+
+        // String file = "src/test/resources/macro10/ife_1.s";
+
+        // String file = "src/test/resources/macro10/m6502.asm";
         // String file = "src/test/resources/macro10/macro_definition_1.s";
+        // String file = "src/test/resources/macro10/macro_definition_2.s";
+
+        // String file = "src/test/resources/macro10/scratchpad.s";
+
+        // String file = "src/test/resources/macro10/todo.s";
+        
         // String file = "src/test/resources/macro10/variable_definition_1.s";
         // String file = "src/test/resources/macro10/variable_equality_definition_1.s";
-        // String file = "src/test/resources/macro10/ife_1.s";
-        // String file = "src/test/resources/macro10/scratchpad.s";
-        // String file = "src/test/resources/macro10/m6502.asm";
-        // String file = "src/test/resources/macro10/file_header.s";
-        // String file = "src/test/resources/macro10/todo.s";
 
         // @formatter:on
 
@@ -59,8 +72,10 @@ public class App {
 
         // parse
         Asm_fileContext root = parser.asm_file();
+        // ExprContext root = parser.expr();
 
-        RawOutputListener listener = new RawOutputListener();
+        // RawOutputListener listener = new RawOutputListener();
+        ProcessingOutputListener listener = new ProcessingOutputListener();
 
         // create a generic parse tree walker that can trigger callbacks
         final ParseTreeWalker walker = new ParseTreeWalker();

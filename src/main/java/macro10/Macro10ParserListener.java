@@ -38,16 +38,6 @@ public interface Macro10ParserListener extends ParseTreeListener {
 	 */
 	void exitAssembler_instruction(Macro10Parser.Assembler_instructionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link Macro10Parser#ifdif}.
-	 * @param ctx the parse tree
-	 */
-	void enterIfdif(Macro10Parser.IfdifContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link Macro10Parser#ifdif}.
-	 * @param ctx the parse tree
-	 */
-	void exitIfdif(Macro10Parser.IfdifContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link Macro10Parser#irpc}.
 	 * @param ctx the parse tree
 	 */
@@ -57,6 +47,16 @@ public interface Macro10ParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitIrpc(Macro10Parser.IrpcContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link Macro10Parser#ifdif}.
+	 * @param ctx the parse tree
+	 */
+	void enterIfdif(Macro10Parser.IfdifContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link Macro10Parser#ifdif}.
+	 * @param ctx the parse tree
+	 */
+	void exitIfdif(Macro10Parser.IfdifContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link Macro10Parser#macro_definition}.
 	 * @param ctx the parse tree
@@ -97,6 +97,16 @@ public interface Macro10ParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitMacro_param(Macro10Parser.Macro_paramContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link Macro10Parser#conditional_assembly}.
+	 * @param ctx the parse tree
+	 */
+	void enterConditional_assembly(Macro10Parser.Conditional_assemblyContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link Macro10Parser#conditional_assembly}.
+	 * @param ctx the parse tree
+	 */
+	void exitConditional_assembly(Macro10Parser.Conditional_assemblyContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link Macro10Parser#created_symbol}.
 	 * @param ctx the parse tree

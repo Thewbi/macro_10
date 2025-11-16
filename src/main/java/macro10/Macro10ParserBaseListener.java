@@ -52,18 +52,6 @@ public class Macro10ParserBaseListener implements Macro10ParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIfdif(Macro10Parser.IfdifContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitIfdif(Macro10Parser.IfdifContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterIrpc(Macro10Parser.IrpcContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -71,6 +59,18 @@ public class Macro10ParserBaseListener implements Macro10ParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitIrpc(Macro10Parser.IrpcContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIfdif(Macro10Parser.IfdifContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIfdif(Macro10Parser.IfdifContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -119,6 +119,18 @@ public class Macro10ParserBaseListener implements Macro10ParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitMacro_param(Macro10Parser.Macro_paramContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterConditional_assembly(Macro10Parser.Conditional_assemblyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitConditional_assembly(Macro10Parser.Conditional_assemblyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

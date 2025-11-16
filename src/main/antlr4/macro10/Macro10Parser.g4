@@ -37,8 +37,7 @@ assembler_instruction :
     | ifdif
 	| macro_definition 
     | FNS
-    | IFE expr COMMA block 
-    | IFN expr COMMA block
+    | conditional_assembly
     | ORG INTEGER
     | PAGE 
     | RADIX INTEGER
@@ -50,10 +49,10 @@ assembler_instruction :
     | END expr
 	;
 
-ifdif : IFDIF block block COMMA block
+irpc : IRPC IDENTIFIER COMMA? block
     ;
 
-irpc : IRPC IDENTIFIER COMMA? block
+ifdif : IFDIF block block COMMA block
     ;
 	
 macro_definition : 
@@ -74,6 +73,11 @@ macro_param_list :
 
 macro_param :
     IDENTIFIER
+    ;
+
+conditional_assembly :
+      IFE expr COMMA block 
+    | IFN expr COMMA block
     ;
 
 created_symbol :
@@ -159,6 +163,7 @@ expr :
     | expr MINUS expr
     | expr MUL expr
 	| expr DIV expr
+    | expr ASSIGN expr
 	| block 
 	| IDENTIFIER
     | StringLiteral
